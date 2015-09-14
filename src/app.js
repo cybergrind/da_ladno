@@ -16,6 +16,6 @@ class NotFound extends Component {
 export var routes = (
     <Route component={BlogContainer}>
         <Route path='/' component={DefaultView} />
-        <Route path='*' Component={NotFound} />
+        <Route path='*' component={NotFound} />
     </Route>
 )

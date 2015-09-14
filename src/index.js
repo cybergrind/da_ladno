@@ -3,11 +3,29 @@ import 'babel-core/polyfill';
 import React from 'react';
 import { routes } from './app';
 import { Router } from 'react-router';
+import { createHistory } from 'history';
+import { Provider } from 'react-redux';
+import store from './store'
 
 
-// TODO: migrate to 1.0.0
-// Router.run(routes, Router.HashLocation, (Root) => {
-//     React.render(<Root />, document.getElementById('root'));
-// })
+let history = createHistory();
 
-React.render(<Router routes={routes} />, document.getElementById('root'));
+function getRouter(){
+    return (
+        <Router history={history}>
+            { routes }
+        </Router>
+    )
+}
+
+let Root = React.createClass({
+    render: function(){
+        return (
+            <section>
+                <Provider store={store}>{getRouter}</Provider>
+            </section>
+        );
+    }
+});
+
+React.render(<Root />, document.getElementById('root'));

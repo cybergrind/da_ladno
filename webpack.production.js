@@ -1,0 +1,37 @@
+var path = require('path');
+var webpack = require('webpack');
+
+module.exports = {
+  devtool: 'source-map',
+  entry: [
+    './src/index'
+  ],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.min.js',
+    publicPath: '/static/'
+  },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }}),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            }
+        })
+  ],
+    module: {
+        loaders: [
+            {test: /\.js$/,
+             loaders: ['babel?stage=1'],
+             include: path.join(__dirname, 'src')}
+            ,{test: /\.scss$/,
+              loaders: ['style', 'css', 'sass'],
+              include: path.join(__dirname, 'scss')
+            }
+        ]
+  }
+};

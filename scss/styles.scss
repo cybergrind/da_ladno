@@ -1,0 +1,27 @@
+
+@import "~normalize.css";
+
+$default_font: sans-serif;
+$default_font_size: 20px;
+$date_color: #999;
+$tag_color: #948;
+
+#page_section {
+    font: $default_font;
+    font-size: $default_font_size;
+    #main_container {
+        .post {
+            margin-bottom: 20px;
+            .tags {
+                margin-bottom: 5px;
+                color: $tag_color;
+            }
+            .ts {
+                float: left;
+                margin-left: -8em;
+                text-align: center;
+                color: $date_color;
+            }
+        }
+    }
+}

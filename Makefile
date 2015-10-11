@@ -6,4 +6,4 @@ npm_init:
 	npm install
 
 prod:
-	npm run-script prod
+	NODE_ENV=production npm run-script prod

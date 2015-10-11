@@ -27,6 +27,7 @@ let params = {
 }
 
 let init = false;
+
 export default class Gfycat extends Component {
     componentDidMount(){
         loadScript('http://test.gfycat.com/gfycat_test_june25.js');

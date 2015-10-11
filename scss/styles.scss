@@ -22,6 +22,11 @@ $tag_color: #948;
                 text-align: center;
                 color: $date_color;
             }
+            .post_img {
+                position: relative;
+                margin: auto;
+                max-width: 800px;
+            }
         }
     }
 }

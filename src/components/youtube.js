@@ -24,7 +24,6 @@ export default class YVideo extends Component {
         return `//youtube.com/embed/${id}?autoplay=0`
     }
     render(){
-        console.log('Vimeo')
         let id = get_youtubeid(this.props.url);
         let s = {width: '800', height: '490', frameBorder: '0'}
         return <iframe src={this.get_iframe_url(id)} {...s} allowFullScreen />;

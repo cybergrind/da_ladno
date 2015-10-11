@@ -13,7 +13,7 @@ export function root_reducer(state, action){
     let new_state = Object.assign({}, state || {});
     let rlist = reducers.map(f => curry_second(f, action));
     compose(...rlist)(new_state);
-    console.log(`Old state ${state}, Action: ${action} NewState: ${new_state}`)
+    console.log('Old state', state, 'Action: ', action, 'NewState: ', new_state);
     return new_state;
 }
 

@@ -21,6 +21,7 @@ export default class VVideo extends Component {
         return `//player.vimeo.com/video/${id}`
     }
     render(){
+        console.log('Vimeo');
         let id = get_imgurid(this.props.url);
         let s = {width: '800', height: '490', frameBorder: '0'}
         return <iframe src={this.get_iframe_url(id)} {...s} allowfullscreen/>;

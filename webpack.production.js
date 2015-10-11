@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: false,
   entry: [
     './src/index'
   ],
@@ -18,8 +18,11 @@ module.exports = {
             }}),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
+            sourceMap: false,
             compressor: {
-                warnings: false
+                warnings: false,
+                drop_console: true,
+                screw_ie8: true
             }
         })
   ],

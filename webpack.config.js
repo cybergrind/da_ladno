@@ -20,11 +20,15 @@ module.exports = {
               NODE_ENV: JSON.stringify('development')
           }})
   ],
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel?stage=0'],
-      include: path.join(__dirname, 'src')
-    }]
+    module: {
+        loaders: [
+            {test: /\.js$/,
+             loaders: ['babel?stage=1'],
+             include: path.join(__dirname, 'src')}
+            ,{test: /\.scss$/,
+              loaders: ['style', 'css', 'sass'],
+              include: path.join(__dirname, 'scss')
+            }
+        ]
   }
 };

@@ -24,7 +24,7 @@ function classify(url){
     } else if (/gfycat.com/.test(url)){
         return <Gfycat url={url} />;
     }
-    return url
+    return decodeURIComponent(url);
 }
 
 export class BaseLink extends Component {

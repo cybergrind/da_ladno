@@ -23,8 +23,32 @@ function classify(url){
         return <Coub url={url} />;
     } else if (/gfycat.com/.test(url)){
         return <Gfycat url={url} />;
+    } else if (/\.mp4(\?.*)?$/.test(url)){
+        return <Mp4Video url={url}/>;
+    } else if (/\.webm(\?.*)?$/.test(url)){
+        return <WebmVideo url={url}/>;
     }
     return decodeURIComponent(url);
+}
+
+class Mp4Video extends Component {
+    render(){
+        return (
+            <video width='800' height='600' controls='1' loop='1'>
+                <source src={this.props.url} type='video/mp4'/>
+            </video>
+        );
+    }
+}
+
+class WebmVideo extends Component {
+    render(){
+        return (
+            <video width='800' height='600' controls='1' loop='1'>
+                <source src={this.props.url} type='video/webm'/>
+            </video>
+        );
+    }
 }
 
 export class BaseLink extends Component {

@@ -30,7 +30,7 @@ let init = false;
 
 export default class Gfycat extends Component {
     componentDidMount(){
-        loadScript('http://test.gfycat.com/gfycat_test_june25.js');
+        loadScript('http://assets.gfycat.com/js/gfyajax-0.517d.js');
         if (gfyCollection && !init){
             gfyCollection.init();
             init = true;

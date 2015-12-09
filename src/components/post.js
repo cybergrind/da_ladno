@@ -21,11 +21,12 @@ export class Post extends Component {
         )
     }
     render(){
+        let tags = this.props.tags || [];
         return (
             <div className='post'>
                 { this.get_ts() }
                 <div className='tags'>
-                    { this.props.tags.map( t => {
+                    { tags.map( t => {
                         return <span className='tag'>{ t }</span>
                     }) }
                 </div>

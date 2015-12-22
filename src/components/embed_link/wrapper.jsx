@@ -1,6 +1,6 @@
 // -*- web-mode-content-type:"jsx" -*-
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import YVideo from './youtube.jsx';
 import VVideo from './vimeo.jsx';
 import Imgur from './imgur.jsx';
@@ -57,7 +57,10 @@ export class LinkWrapper extends Component {
         let inner = classify(url);
         // console.log('Classify: ', inner);
         return (
-            <a href={ url } target='_blank'>{ inner }</a>
-        )
+            <a href={url} target='_blank'>{inner}</a>
+        );
     }
 }
+LinkWrapper.propTypes = {
+    url: PropTypes.string.isRequired,
+};

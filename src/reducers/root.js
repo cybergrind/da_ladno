@@ -1,10 +1,10 @@
-import { compose } from 'redux'
+import { compose } from 'redux';
 
-import state_helper_reducer from './state_helper'
+import state_helper_reducer from './state_helper';
 
 
 function curry_second(func, second_arg){
-    return first_arg => func(first_arg, second_arg)
+    return first_arg => func(first_arg, second_arg);
 }
 
 let reducers = [state_helper_reducer];

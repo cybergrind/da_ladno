@@ -1,14 +1,14 @@
 
-import store from './store'
+import store from './store';
 
 
 export let TYPE = {
-}
+};
 
-let simple_types = ['STATE_HELPER']
+let simple_types = ['STATE_HELPER'];
 
 function init_type(){
-    simple_types.forEach(x => TYPE[x] = x)
+    simple_types.forEach(x => TYPE[x] = x);
 }
 init_type();
 

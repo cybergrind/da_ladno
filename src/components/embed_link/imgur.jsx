@@ -19,7 +19,7 @@ function get_imgurid(url){
       return 'a/'+i;
     }
   } else {
-    return ''
+    return '';
   }
 }
 

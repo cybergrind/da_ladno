@@ -1,6 +1,6 @@
 
 start: npm_init
-	npm start
+	NODE_ENV='development' npm start
 
 npm_init:
 	npm install

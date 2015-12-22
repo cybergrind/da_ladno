@@ -21,7 +21,7 @@ let params = {
     originalSize: false,
     hideTopBar: false,
     startWithHD: false
-}
+};
 export default class Coub extends Component {
     render(){
         let id = get_coub(this.props.url);

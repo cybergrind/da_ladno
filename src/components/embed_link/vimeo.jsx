@@ -12,18 +12,18 @@ function get_imgurid(url){
       return 'a/'+i;
     }
   } else {
-    return ''
+    return '';
   }
 }
 
 export default class VVideo extends Component {
     get_iframe_url(id){
-        return `//player.vimeo.com/video/${id}`
+        return `//player.vimeo.com/video/${id}`;
     }
     render(){
         console.log('Vimeo');
         let id = get_imgurid(this.props.url);
-        let s = {width: '800', height: '490', frameBorder: '0'}
-        return <iframe src={this.get_iframe_url(id)} {...s} allowfullscreen/>;
+        let s = {width: '800', height: '490', frameBorder: '0'};
+        return <iframe src={this.get_iframe_url(id)} {...s} allowFullScreen/>;
     }
 }

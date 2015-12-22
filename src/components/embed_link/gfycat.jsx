@@ -19,12 +19,12 @@ let params = {
     frameborder: '0',
     scrolling: 'no',
     width: '480',
-    height: "858",
+    height: '858',
     style: {
         '-webkit-backface-visibility': 'hidden',
         '-webkit-transform': 'scale(1)'
     }
-}
+};
 
 let init = false;
 

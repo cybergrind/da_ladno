@@ -1,4 +1,4 @@
-import { TYPE } from '../actions'
+import { TYPE } from '../actions';
 
 function state_set(k, v, state){
     /**
@@ -8,10 +8,10 @@ function state_set(k, v, state){
     let path = full.slice(0, full.length-1);
     let key = full[full.length-1];
     let curr = path.reduce((curr, name) => {
-        curr[name] = curr[name] || {}
-        return curr[name]
+        curr[name] = curr[name] || {};
+        return curr[name];
     }, state);
-    curr[key] = v
+    curr[key] = v;
 }
 
 export default function state_helper_reducer(state, action){

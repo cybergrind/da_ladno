@@ -1,17 +1,18 @@
 // -*- web-mode-content-type:"jsx" -*-
-import React from 'react'
-import { set_state } from './actions'
-import { LinkWrapper } from './components/embed_link/wrapper.jsx'
+import React from 'react';
+import { set_state } from './actions';
+import { LinkWrapper } from './components/embed_link/wrapper.jsx';
 
-let name = 'netneladno'
+let name = 'netneladno';
 let txtRe = /<?((?:https?|ftp)(?::\/\/[^\s()<>]+))>?|(\n)|(&quot;)/g;
 let urlRegex = /((https?|ftp)(:\/\/[^\s()<>]+))/;
 
 
-
+let uc = 0;
 function link_prepare(s){
     // console.log('Base link: ', s);
-    return <LinkWrapper url={s} />;
+    uc += 1;
+    return <LinkWrapper key={'_lnk_'+uc} url={s} />;
 }
 
 function parse_substring(s){
@@ -26,11 +27,13 @@ function parse_substring(s){
     }
 }
 
+const notEmpty = (x) => x && (x.length > 0 || typeof(x) == 'object');
+
 function prepare_body(msg){
     let txt = msg.body;
     let arr = txt.split(txtRe);
-    msg.body = arr.map(parse_substring);
-    return msg
+    msg.body = arr.map(parse_substring).filter(notEmpty);
+    return msg;
 }
 
 class JuickApi {
@@ -48,7 +51,7 @@ class JuickApi {
         if (!l){
             localStorage.clear();
             localStorage.setItem('_cachev', Date.now());
-            return
+            return;
         }
         let n = Date.now();
         if ((n - l) > 10*60*1000){
@@ -58,7 +61,7 @@ class JuickApi {
     }
     async load_more(){
         if (this._in_progress){
-            return
+            return;
         };
         this._in_progress = 1;
         let response = await (this.get_messages());
@@ -69,7 +72,7 @@ class JuickApi {
 
     push_messages(messages){
         console.log('Mesasges: ', messages, this);
-        messages = messages.map(prepare_body)
+        messages = messages.map(prepare_body);
         this.messages = [...this.messages, ...messages];
         console.log('M: ', this);
     }
@@ -83,19 +86,19 @@ class JuickApi {
             console.log('Push to url');
             let reply = await fetch(url);
             console.log('reply1: ', reply);
-            response = await reply.json().catch(e => []);
-            console.log('Resp is1: ', response)
+            response = await reply.json().catch(() => []);
+            console.log('Resp is1: ', response);
             //localStorage.setItem(url, JSON.stringify(response));
             console.log('Resp: ', response, this);
         } else {
-            console.log('From local storage')
+            console.log('From local storage');
             response = JSON.parse(local);
         }
-        return response
+        return response;
     }
 
 
 }
 
-let juick_api = new JuickApi()
-export default juick_api
+let juick_api = new JuickApi();
+export default juick_api;

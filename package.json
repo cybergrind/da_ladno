@@ -34,7 +34,7 @@
     "history": "^1.9.0",
     "load-script": "^1.0.0",
     "lodash": "^3.10.1",
-    "react": "^0.13.3",
+    "react": "^0.14.0",
     "react-redux": "^2.1.2",
     "react-router": "1.0.0-rc1",
     "redux": "^2.0.0"

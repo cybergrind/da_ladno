@@ -24,8 +24,10 @@ $tag_color: #948;
             }
             .post_img {
                 position: relative;
-                margin: auto;
                 max-width: 800px;
+            }
+            .post-stub {
+                min-height: 10px;
             }
         }
     }

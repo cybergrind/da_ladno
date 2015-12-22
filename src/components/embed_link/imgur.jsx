@@ -23,20 +23,17 @@ function get_imgurid(url){
   }
 }
 
-let loaded = 0;
 
 export default class Imgur extends Component {
     componentDidMount(){
-        if (!loaded){
-            loadScript('http://s.imgur.com/min/embed.js');
-        }
-        loaded = 1;
+        loadScript('http://s.imgur.com/min/embed.js');
     }
     render(){
         let id = get_imgurid(this.props.url);
         return (
             <div>
                 <blockquote className="imgur-embed-pub" lang="en" data-id={id}>
+                    <div className='post-stub'>Loading...</div>
                 </blockquote>
             </div>
 

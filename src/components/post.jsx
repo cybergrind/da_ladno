@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 
 
+
 export class Post extends Component {
     get_ts(){
         let [date, time] = this.props.timestamp.split(' ')
@@ -20,17 +21,24 @@ export class Post extends Component {
             </div>
         )
     }
+    get_tags(tags){
+        if (!tags){
+            return ;
+        }
+        return (
+            <div className='tags'>
+                { tags.map( t => {
+                      return <span className='tag'>{ t }</span>
+                  }) }
+            </div>
+        );
+    }
     render(){
-        let tags = this.props.tags || [];
         return (
             <div className='post'>
-                { this.get_ts() }
-                <div className='tags'>
-                    { tags.map( t => {
-                        return <span className='tag'>{ t }</span>
-                    }) }
-                </div>
-                { this.get_body() }
+                {this.get_ts()}
+                {this.get_tags(this.props.tags)}
+                {this.get_body()}
             </div>
         )
     }

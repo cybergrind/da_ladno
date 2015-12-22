@@ -25,7 +25,7 @@ export class BlogContainer extends Component {
                     <div className='pure-u-1-3'>
                         {this.get_debug()}
                     </div>
-                    <div className='pure-u-1-3' id='main_container'>
+                    <div className='pure-u-2-3' id='main_container'>
                         <h1>Container</h1>
                         {this.props.children}
                     </div>

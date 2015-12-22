@@ -30,9 +30,10 @@ export default class Imgur extends Component {
     }
     render(){
         let id = get_imgurid(this.props.url);
+        let ctx = /hash/.test(this.props.url) ? true : false;
         return (
             <div>
-                <blockquote className="imgur-embed-pub" lang="en" data-id={id}>
+                <blockquote className="imgur-embed-pub" lang="en" data-id={id} data-context={ctx}>
                     <div className='post-stub'>Loading...</div>
                 </blockquote>
             </div>

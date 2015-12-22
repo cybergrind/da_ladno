@@ -11,7 +11,7 @@ $tag_color: #948;
     font-size: $default_font_size;
     #main_container {
         .post {
-            margin-bottom: 20px;
+            margin-bottom: 70px;
             .tags {
                 margin-bottom: 5px;
                 color: $tag_color;
@@ -28,6 +28,10 @@ $tag_color: #948;
             }
             .post-stub {
                 min-height: 10px;
+            }
+            .replies {
+                margin-top: 15px;
+                text-align: right;
             }
         }
     }

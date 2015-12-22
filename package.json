@@ -4,7 +4,7 @@
   "description": "Net ne ladno site",
   "scripts": {
     "start": "node server.js",
-    "prod": "webpack --config webpack.production.js",
+    "build": "webpack",
     "lint": "eslint src"
   },
   "author": "Kirill Pinchuk <cybergrind@gmail.com>",

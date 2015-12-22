@@ -7,18 +7,18 @@ import store from '../store.js';
 import juick_api from '../juick.js';
 import { Post } from './post.jsx';
 import { DevTools } from './devtools.jsx';
+import { getTitle } from '../title.js';
 
 
 export class BlogContainer extends Component {
     render(){
         return (
             <section id='page_section'>
+                {DevTools && <DevTools />}
                 <div className='pure-g'>
-                    <div className='pure-u-1-3'>
-                        <DevTools />
-                    </div>
+                    <div className='pure-u-1-3'/>
                     <div className='pure-u-1-3' id='main_container'>
-                        <h1>Container</h1>
+                        <h1>{BlogContainer.title}</h1>
                         {this.props.children}
                     </div>
                 </div>
@@ -26,6 +26,7 @@ export class BlogContainer extends Component {
         );
     }
 }
+BlogContainer.title = getTitle();
 
 // { mid: 2802690, user: Object, body: "", tags: Array[1],
 //   timestamp: "2015-09-12 18:35:23", replies: 1, repliesby: "@a, @b" }
@@ -78,7 +79,6 @@ class DefaultViewBase extends Component {
         let messages = this.props.juick_messages || [];
         return (
             <section id='blog_content' onWheel={this.more.bind(this)}>
-                <h3>Default View</h3>
                 {messages.map((c) => <Post  key={'m_'+c.mid} {...c}/>) }
                 <LoadMore ref='elm'/>
             </section>

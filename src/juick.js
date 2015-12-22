@@ -1,7 +1,7 @@
 // -*- web-mode-content-type:"jsx" -*-
 import React from 'react'
 import { set_state } from './actions'
-import { BaseLink } from './components/links'
+import { LinkWrapper } from './components/embed_link/wrapper.jsx'
 
 let name = 'netneladno'
 let txtRe = /<?((?:https?|ftp)(?::\/\/[^\s()<>]+))>?|(\n)|(&quot;)/g;
@@ -11,7 +11,7 @@ let urlRegex = /((https?|ftp)(:\/\/[^\s()<>]+))/;
 
 function link_prepare(s){
     // console.log('Base link: ', s);
-    return <BaseLink url={s} />;
+    return <LinkWrapper url={s} />;
 }
 
 function parse_substring(s){

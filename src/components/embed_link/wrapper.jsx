@@ -1,11 +1,11 @@
 // -*- web-mode-content-type:"jsx" -*-
 
 import React, { Component } from 'react';
-import YVideo from './youtube';
-import VVideo from './vimeo';
-import Imgur from './imgur';
-import Coub from './coub';
-import Gfycat from './gfycat';
+import YVideo from './youtube.jsx';
+import VVideo from './vimeo.jsx';
+import Imgur from './imgur.jsx';
+import Coub from './coub.jsx';
+import Gfycat from './gfycat.jsx';
 
 
 let imgRegex = /\.(jpg|png|gif|jpeg|svg)((\?|:).+)?$/;
@@ -51,7 +51,7 @@ class WebmVideo extends Component {
     }
 }
 
-export class BaseLink extends Component {
+export class LinkWrapper extends Component {
     render(){
         let url = this.props.url;
         let inner = classify(url);

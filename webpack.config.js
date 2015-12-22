@@ -22,7 +22,7 @@ module.exports = {
   ],
     module: {
         loaders: [
-            {test: /\.js$/,
+            {test: /\.jsx?$/,
              loaders: ['babel?stage=1'],
              include: path.join(__dirname, 'src')}
             ,{test: /\.scss$/,

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { BlogContainer, DefaultView } from './components/blog.js';
+import { BlogContainer, DefaultView } from './components/blog.jsx';
 
 
 class NotFound extends Component {

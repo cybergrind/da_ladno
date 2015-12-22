@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { connect } from 'react-redux';
 import store from '../store.js';
-import juick_api from '../juick'
-import { Post } from './post'
+import juick_api from '../juick.js'
+import { Post } from './post.jsx'
 
 
 export class BlogContainer extends Component {

@@ -70,6 +70,16 @@ class JuickApi {
         this._in_progress = 0;
     }
 
+    async loadFull(mid){
+        let url = `http://api.juick.com/thread?mid=${mid}`;
+        let r = await fetch(url);
+        if (r.status == 200){
+            let messages = await r.json();
+            messages = messages.map(prepare_body);
+            set_state(['full', mid], messages);
+        }
+    }
+
     push_messages(messages){
         console.log('Mesasges: ', messages, this);
         messages = messages.map(prepare_body);

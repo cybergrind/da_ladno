@@ -1,6 +1,7 @@
 // -*- web-mode-content-type:"jsx" -*-
 
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 
 function Replies({replies, mid}){
@@ -13,7 +14,9 @@ function Replies({replies, mid}){
     } else {
         return (
             <div className='replies'>
-                Replies: {replies||0}
+                <Link to='/msg/' query={{mid}}>
+                    Replies: {replies||0}
+                </Link>
             </div>
         );
     }
@@ -39,7 +42,7 @@ export class Post extends Component {
                 <div className='body'>
                     {this.props.body}
                 </div>
-                <Replies replies={this.props.replies||0} mid={this.props.mid}/>
+                {this.props.showReplies && <Replies replies={this.props.replies||0} mid={this.props.mid}/>}
             </div>
         );
     }
@@ -50,8 +53,10 @@ Post.propTypes = {
     mid: PropTypes.number.isRequired,
     replies: PropTypes.number.isRequired,
     tags: PropTypes.array.isRequired,
+    showReplies: PropTypes.bool.isRequired,
 };
 Post.defaultProps = {
     tags: [],
     replies: 0,
+    showReplies: true
 };

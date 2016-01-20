@@ -40,7 +40,7 @@ class JuickApi {
     constructor(){
         this.name = name;
         console.log('Init juick api');
-        this.page = 1;
+        this.last_mid = undefined;
         this.messages = [];
         this.checkLS();
         this.load_more();
@@ -88,9 +88,11 @@ class JuickApi {
     }
 
     async get_messages(){
-        this.page += 1;
         let response = [];
-        let url = `http://api.juick.com/messages?uname=${this.name}&page=${this.page-1}`;
+        let url = `http://api.juick.com/messages?uname=${this.name}`;
+        if (this.last_mid){
+            url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${this.last_mid}`;
+        }
         let local = localStorage.getItem(url);
         if (!local){
             console.log('Push to url');
@@ -103,6 +105,9 @@ class JuickApi {
         } else {
             console.log('From local storage');
             response = JSON.parse(local);
+        }
+        if (response.length > 0){
+            this.last_mid = response[response.length-1].mid;
         }
         return response;
     }

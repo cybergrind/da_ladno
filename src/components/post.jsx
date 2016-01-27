@@ -5,21 +5,13 @@ import { Link } from 'react-router';
 
 
 function Replies({replies, mid}){
-    if (replies == 0){
-        return (
-            <div className='replies'>
+    return (
+        <div className='replies'>
+            <Link to='/msg/' query={{mid}}>
                 Replies: {replies||0}
-            </div>
-        );
-    } else {
-        return (
-            <div className='replies'>
-                <Link to='/msg/' query={{mid}}>
-                    Replies: {replies||0}
-                </Link>
-            </div>
-        );
-    }
+            </Link>
+        </div>
+    );
 }
 Replies.propTypes = {
     replies: PropTypes.number.isRequired

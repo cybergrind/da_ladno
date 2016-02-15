@@ -16,8 +16,8 @@ export class BlogContainer extends Component {
             <section id='page_section'>
                 {DevTools && <DevTools />}
                 <div className='pure-g'>
-                    <div className='pure-u-1-3'/>
-                    <div className='pure-u-1-3' id='main_container'>
+                    <div className='pure-u-4-24'/>
+                    <div className='pure-u-16-24' id='main_container'>
                         <h1>{BlogContainer.title}</h1>
                         {this.props.children}
                     </div>

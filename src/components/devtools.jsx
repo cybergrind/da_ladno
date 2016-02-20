@@ -15,6 +15,7 @@ let DevTools = Empty;
 if (process.env.NODE_ENV == 'development'){
     DevTools = createDevTools(
         <DockMonitor toggleVisibilityKey='ctrl-l'
+                     defaultIsVisible={false}
                      changePositionKey='ctrl-q'>
             <LogMonitor theme='tomorrow' />
         </DockMonitor>

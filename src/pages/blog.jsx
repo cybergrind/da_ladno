@@ -53,6 +53,9 @@ class DefaultViewBase extends Component {
         let lastMid = _.last(juick_messages).mid;
         return (
             <div>
+                <Link to=''>
+                    First Page
+                </Link>
                 <Link to='' query={{before: lastMid}}>
                     Next Page
                 </Link>
@@ -62,10 +65,13 @@ class DefaultViewBase extends Component {
     render(){
         console.log('props: ', this.props);
         const before = this.props.location.query.before || Infinity;
+        if (before == Infinity){
+            scrollTo(window.scrollX, 0);
+        }
         let messages = _.take((this.props.juick_messages || []).filter( m => m.mid < before), 20);
         console.log('M: ', messages, ' Before: ', before);
         if (messages.length == 0){
-            juick_api.load_more();
+            juick_api.load_more(before);
             return <div>Loading...</div>;
         }
         return (

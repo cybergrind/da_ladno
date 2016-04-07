@@ -37,8 +37,12 @@ function prepare_body(msg){
     return msg;
 }
 
+
+const LIMIT = 1000;
+
 class JuickApi {
     constructor(){
+        this._prev = (new Date() - 5000);
         this._in_progress = 0;
         this.name = name;
         console.log('Init juick api');
@@ -46,6 +50,7 @@ class JuickApi {
         this.messages = [];
         this.checkLS();
         this.load_more = this.load_more.bind(this);
+        this.get_messages = this.get_messages.bind(this);
         this.load_more();
 
     }
@@ -62,13 +67,13 @@ class JuickApi {
             localStorage.setItem('_cachev', Date.now());
         }
     }
-    async load_more(){
+    async load_more(before){
         if (this._in_progress){
             return;
         };
         console.log('Load more', JSON.stringify(this));
         this._in_progress = 1;
-        let response = await (this.get_messages());
+        let response = await (this.get_messages(before));
         this.push_messages(response);
         _.defer(() => set_state('juick_messages', this.messages));
         console.log('In progress=0');
@@ -93,15 +98,29 @@ class JuickApi {
         console.log('M: ', this);
     }
 
-    async get_messages(){
+    async get_messages(before){
+        console.log('Before: ', before);
+        if (before == Infinity){
+            before = null;
+        }
         let response = [];
         let url = `http://api.juick.com/messages?uname=${this.name}`;
-        if (this.last_mid){
-            url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${this.last_mid}`;
+        const before_mid = before || this.last_mid;
+        if (before_mid){
+            url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${before_mid}`;
         }
         let local = localStorage.getItem(url);
         if (!local){
             console.log('Push to url');
+            const curr = new Date();
+            const wait_time = ((this._prev || curr) -curr + LIMIT);
+            console.log('Wait time: ', wait_time, this._prev, LIMIT, curr);
+            const p = new Promise( resolve => {
+                console.log('Wait time2: ', wait_time, this._prev);
+                setTimeout(() => resolve(true), wait_time);
+            });
+            await p;
+            this._prev = new Date();
             let reply = await fetch(url);
             console.log('reply1: ', reply);
             response = await reply.json().catch(() => []);

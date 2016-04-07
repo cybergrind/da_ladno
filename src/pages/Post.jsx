@@ -19,6 +19,14 @@ Replies.propTypes = {
 
 
 export class Post extends Component {
+    drawPhoto(){
+        const {photo} = this.props;
+        if (photo){
+            return (
+                <img src={photo.medium || photo.small} />
+            );
+        }
+    }
     render(){
         let { timestamp, tags } = this.props;
         let [date, time] = timestamp.split(' ');
@@ -34,6 +42,7 @@ export class Post extends Component {
                 <div className='body'>
                     {this.props.body}
                 </div>
+                {this.drawPhoto()}
                 {this.props.showReplies && <Replies replies={this.props.replies||0} mid={this.props.mid}/>}
             </div>
         );
@@ -46,6 +55,7 @@ Post.propTypes = {
     replies: PropTypes.number.isRequired,
     tags: PropTypes.array.isRequired,
     showReplies: PropTypes.bool.isRequired,
+    photo: PropTypes.array,
 };
 Post.defaultProps = {
     tags: [],

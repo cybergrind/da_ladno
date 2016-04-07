@@ -4,8 +4,14 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Root } from './components/root.jsx';
 
+function draw(){
+    const Root = require('./pages/Root.jsx').Root;
+    ReactDOM.render(React.createElement(Root), document.getElementById('root'));
+}
 
+draw();
 
-ReactDOM.render(React.createElement(Root), document.getElementById('root'));
+if (module.hot){
+    module.hot.accept('./pages/Root.jsx');
+}

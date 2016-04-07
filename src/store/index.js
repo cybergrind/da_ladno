@@ -1,7 +1,7 @@
 
 import { compose, createStore } from 'redux';
-import { root_reducer } from './reducers/root.js';
-import { DevTools } from './components/devtools.jsx';
+import { root_reducer } from '../reducers/root.js';
+import { DevTools } from '../components/devtools.jsx';
 import { persistState } from 'redux-devtools';
 
 

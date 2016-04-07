@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import store from '../store.js';
-import juick_api from '../juick.js';
-import { Post } from './post.jsx';
-import { DevTools } from './devtools.jsx';
+import store from '../store';
+import juick_api from '../api/juick.js';
+import { Post } from './Post.jsx';
+import { DevTools } from '../components/devtools.jsx';
 import { getTitle } from '../title.js';
 
 

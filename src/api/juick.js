@@ -1,7 +1,7 @@
 // -*- web-mode-content-type:"jsx" -*-
 import React from 'react';
-import { set_state } from './actions';
-import { LinkWrapper } from './components/embed_link/wrapper.jsx';
+import { set_state } from '../actions';
+import { LinkWrapper } from '../components/embed_link/wrapper.jsx';
 
 let name = 'netneladno';
 let txtRe = /<?((?:https?|ftp)(?::\/\/[^\s()<>]+))>?|(\n)|(&quot;)/g;

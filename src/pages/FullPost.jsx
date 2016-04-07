@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import juick from '../juick';
-import { Post } from './post.jsx';
-import { Comment } from './comment.jsx';
+import juick from '../api/juick';
+import { Post } from './Post.jsx';
+import { Comment } from '../components/comment.jsx';
 
 
 class FullPostBase extends Component {

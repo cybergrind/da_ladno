@@ -20,7 +20,11 @@ export class BlogContainer extends Component {
                 <div className='pure-g'>
                     <div className='pure-u-4-24'/>
                     <div className='pure-u-16-24' id='main_container'>
-                        <h1>{BlogContainer.title}</h1>
+                        <h1>
+                            <Link to=''>
+                                {BlogContainer.title}
+                            </Link>
+                        </h1>
                         {this.props.children}
                     </div>
                 </div>
@@ -53,9 +57,6 @@ class DefaultViewBase extends Component {
         let lastMid = _.last(juick_messages).mid;
         return (
             <div>
-                <Link to=''>
-                    First Page
-                </Link>
                 <Link to='' query={{before: lastMid}}>
                     Next Page
                 </Link>

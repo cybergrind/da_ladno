@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import _ from 'lodash';
 
 
 function Replies({replies, mid}){
@@ -37,7 +38,7 @@ export class Post extends Component {
                     <div>{time}</div>
                 </div>
                 <div className='tags'>
-                    {tags.map( t => <span key={t} className='tag'>{t}</span>)}
+                    {tags.map( t => <span key={t+_.uniqueId()} className='tag'>{t}</span>)}
                 </div>
                 <div className='body'>
                     {this.props.body}
@@ -55,7 +56,7 @@ Post.propTypes = {
     replies: PropTypes.number.isRequired,
     tags: PropTypes.array.isRequired,
     showReplies: PropTypes.bool.isRequired,
-    photo: PropTypes.array,
+    photo: PropTypes.object,
 };
 Post.defaultProps = {
     tags: [],

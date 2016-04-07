@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 
 function draw(){
-    const Root = require('./pages/Root.jsx').Root;
+    const Root = require('./pages/Root.jsx').Root;  /*eslint react/require-extension:0*/
     ReactDOM.render(React.createElement(Root), document.getElementById('root'));
 }
 

@@ -1,5 +1,6 @@
 // -*- web-mode-content-type:"jsx" -*-
 import React from 'react';
+import _ from 'lodash';
 import { set_state } from '../actions';
 import { LinkWrapper } from '../components/embed_link/wrapper.jsx';
 
@@ -38,13 +39,15 @@ function prepare_body(msg){
 
 class JuickApi {
     constructor(){
+        this._in_progress = 0;
         this.name = name;
         console.log('Init juick api');
-        this.last_mid = undefined;
+        this.last_mid = null;
         this.messages = [];
         this.checkLS();
+        this.load_more = this.load_more.bind(this);
         this.load_more();
-        this._in_progress = 0;
+
     }
     checkLS(){
         let l = localStorage.getItem('_cachev');
@@ -63,11 +66,14 @@ class JuickApi {
         if (this._in_progress){
             return;
         };
+        console.log('Load more', JSON.stringify(this));
         this._in_progress = 1;
         let response = await (this.get_messages());
         this.push_messages(response);
-        set_state('juick_messages', this.messages);
+        _.defer(() => set_state('juick_messages', this.messages));
+        console.log('In progress=0');
         this._in_progress = 0;
+
     }
 
     async loadFull(mid){

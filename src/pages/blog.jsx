@@ -46,12 +46,6 @@ class DefaultViewBase extends Component {
         //console.log('Params: ', nt, wh, sy)
         return (nt < (wh + sy + 200));
     }
-    key_down(e){
-        console.log('KD: ', e);
-        if (e.keyCode == 32){
-            this.more();
-        }
-    }
     loadNavigation(){
         const {juick_messages} = this.props;
         let lastMid = _.last(juick_messages).mid;

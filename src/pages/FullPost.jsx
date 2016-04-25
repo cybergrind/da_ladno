@@ -40,4 +40,4 @@ function getFull(s){
 }
 
 let FullPost = connect(getFull)(FullPostBase);
-export { FullPost };
+export default FullPost ;

@@ -12,7 +12,7 @@ let imgRegex = /\.(jpg|png|gif|jpeg|svg)((\?|:).+)?$/;
 
 function classify(url){
     if (imgRegex.test(url)){
-        return [<img className='post_img' src={url} />];
+        return [<img className="post__photo" src={url} />];
     } else if (/(youtube|youtu).(com|be)/.test(url)){
         return [<YVideo url={url} />];
     } else if (/vimeo.com/.test(url)){
@@ -59,7 +59,7 @@ export class LinkWrapper extends Component {
         if (noLink){
             return inner;
         }
-        return <a href={url} target='_blank'>{inner}</a>;
+        return <a href={url} target='_blank' className="post__content-link">{inner}</a>;
     }
 }
 LinkWrapper.propTypes = {

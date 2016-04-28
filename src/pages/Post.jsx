@@ -7,11 +7,9 @@ import _ from 'lodash';
 
 function Replies({replies, mid}){
     return (
-        <div className='replies'>
-            <Link to='/msg/' query={{mid}}>
-                Replies: {replies||0}
-            </Link>
-        </div>
+        <Link to='/msg/' query={{mid}} className="post__replies">
+            Replies: {replies || 0}
+        </Link>
     );
 }
 Replies.propTypes = {
@@ -24,27 +22,31 @@ export class Post extends Component {
         const {photo} = this.props;
         if (photo){
             return (
-                <img src={photo.medium || photo.small} />
+                <img src={photo.medium || photo.small} className="post__photo" />
             );
         }
     }
+
     render(){
         let { timestamp, tags } = this.props;
         let [date, time] = timestamp.split(' ');
         return (
-            <div className='post'>
-                <div className='ts'>
-                    <div>{date}</div>
-                    <div>{time}</div>
+            <div className="post">
+                <div className="post__tags">
+                    {tags.map( t => <span key={t+_.uniqueId()} className="post__tag">{t}</span>)}
                 </div>
-                <div className='tags'>
-                    {tags.map( t => <span key={t+_.uniqueId()} className='tag'>{t}</span>)}
-                </div>
-                <div className='body'>
+                <div className="post__body">
                     {this.props.body}
                 </div>
                 {this.drawPhoto()}
-                {this.props.showReplies && <Replies replies={this.props.replies||0} mid={this.props.mid}/>}
+                <div className="post__meta">
+                    <div className="post__timestamp">
+                        <div>{time}, {date}</div>
+                    </div>
+                    <div className="post__replies">
+                        {this.props.showReplies && <Replies replies={this.props.replies||0} mid={this.props.mid} />}
+                    </div>
+                </div>
             </div>
         );
     }

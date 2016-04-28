@@ -38,6 +38,11 @@ BlogContainer.title = getTitle();
 //   timestamp: "2015-09-12 18:35:23", replies: 1, repliesby: "@a, @b" }
 
 class DefaultViewBase extends Component {
+    constructor(props, context){
+        super(props, context);
+        this.context = context;
+    }
+
     is_visible(node){
         let wh = window.innerHeight;
         let sy = window.scrollY;
@@ -57,6 +62,31 @@ class DefaultViewBase extends Component {
             </div>
         );
     }
+
+    nextPage = _.throttle(() => {
+        console.log('Next page check');
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+
+            const {juick_messages} = this.props;
+            const lastMid = _.last(juick_messages).mid;
+            console.log('Next page go ', lastMid);
+            this.props.history.push({pathname: '', query: {before: lastMid}});
+        }
+    }, 500)
+
+    onKeyPress = (evt) => {
+        if ([' ', 'Enter', 'PageDown', 'ArrowRight', 'End'].indexOf(evt.key) >= 0){
+            this.nextPage();
+        }
+    }
+
+    componentDidMount(){
+        window.addEventListener('keyup', this.onKeyPress, false);
+    }
+    componentWillUnmount(){
+        window.removeEventListener('keyup', this.onKeyPress);
+    }
+
     render(){
         console.log('props: ', this.props);
         const before = this.props.location.query.before || Infinity;
@@ -84,5 +114,6 @@ function dv_stp(state){
 }
 
 let DefaultView = connect(dv_stp)(DefaultViewBase);
+
 
 export { DefaultView };

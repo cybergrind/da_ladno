@@ -3,7 +3,7 @@ import { createHistory } from 'history';
 import { Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
 
-import { BlogContainer, DefaultView } from './blog.jsx';
+import DefaultView, { BlogContainer } from './blog.jsx';
 import FullPost from './FullPost.jsx';
 import store from './../store';
 

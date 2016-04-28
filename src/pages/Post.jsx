@@ -40,12 +40,13 @@ export class Post extends Component {
                 </div>
                 {this.drawPhoto()}
                 <div className="post__meta">
-                    <div className="post__timestamp">
-                        <div>{time}, {date}</div>
-                    </div>
-                    <div className="post__replies">
+                    <span className="post__timestamp">
+                        <span>{time}, {date}</span>
+                    </span>
+                    {' | '}
+                    <span className="post__replies">
                         {this.props.showReplies && <Replies replies={this.props.replies||0} mid={this.props.mid} />}
-                    </div>
+                    </span>
                 </div>
             </div>
         );

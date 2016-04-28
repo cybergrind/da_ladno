@@ -15,7 +15,7 @@ import { getTitle } from '../title.js';
 export class BlogContainer extends Component {
     render(){
         return (
-            <div className="page" id="page_section">
+            <div className="page">
                 {DevTools && <DevTools />}
                 <div className="page__wrapper">
                     <h1 className="page__header">
@@ -25,6 +25,9 @@ export class BlogContainer extends Component {
                     </h1>
                     <div className="page__content">
                         {this.props.children}
+                    </div>
+                    <div className="footer">
+                        Netneladno &copy; 2016
                     </div>
                 </div>
             </div>
@@ -36,7 +39,7 @@ BlogContainer.title = getTitle();
 // { mid: 2802690, user: Object, body: "", tags: Array[1],
 //   timestamp: "2015-09-12 18:35:23", replies: 1, repliesby: "@a, @b" }
 
-class DefaultViewBase extends Component {
+class DefaultView extends Component {
     is_visible(node){
         let wh = window.innerHeight;
         let sy = window.scrollY;
@@ -69,7 +72,7 @@ class DefaultViewBase extends Component {
             return <div>Loading...</div>;
         }
         return (
-            <div className="content" id='blog_content'>
+            <div className="content">
                 {messages.map((c) => <Post  key={'m_'+c.mid} {...c} />) }
                 {this.loadNavigation()}
             </div>
@@ -78,10 +81,4 @@ class DefaultViewBase extends Component {
 
 }
 
-function dv_stp(state){
-    return state;
-}
-
-let DefaultView = connect(dv_stp)(DefaultViewBase);
-
-export { DefaultView };
+export default connect(state => state)(DefaultView);

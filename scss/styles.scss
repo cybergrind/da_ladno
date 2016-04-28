@@ -5,6 +5,12 @@ $default_font_size: 20px;
 $date_color: #999;
 $tag_color: #948;
 
+// RWD Breakpoints
+$screen-xs-min: 480px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1199px;
+
 *,
 *:after,
 *:before {
@@ -27,6 +33,15 @@ img, video, iframe {
         font-size: 28px;
         font-style: italic;
         border-bottom: 1px solid #efefef;
+
+        @media (min-width: $screen-sm-min) {
+            padding: 20px 30px;
+        }
+
+        @media (min-width: $screen-lg-min) {
+            padding: 40px 30px;
+            font-size: 40px;
+        }
     }
 
     &__header-link {
@@ -35,27 +50,50 @@ img, video, iframe {
     }
 
     &__content {
-        padding: 0 10px;
+        padding: 0 10px 30px;
+
+        @media (min-width: $screen-sm-min) {
+            padding: 0 30px 30px;
+        }
     }
 }
 
 .content {
+    width: 100%;
 
+    @media (min-width: $screen-lg-min) {
+        display: flex;
+        flex-flow: row wrap;
+    }
 }
 
 .post {
-    margin-top: 40px;
+    padding: 25px 0;
+
+    @media (min-width: $screen-sm-min) {
+        padding: 40px 0;
+    }
+
+    @media (min-width: $screen-lg-min) {
+        width: 48%;
+
+        &:nth-child(2n+2) {
+            margin-left: 4%;
+        }
+    }
 
     &:first-child {
         margin-top: 0;
     }
 
     &__meta {
-        padding-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        padding-top: 15px;
         font-size: 14px;
+
+        @media (min-width: $screen-sm-min) {
+            font-size: 16px;
+            font-weight: bold;
+        }
     }
 
     &__timestamp {
@@ -63,10 +101,10 @@ img, video, iframe {
     }
 
     &__replies {
-        font-size: 14px;
         text-decoration: none;
         display: inline-block;
         color: #3F51B5;
+        cursor: pointer;
     }
 
     &__body {
@@ -78,47 +116,32 @@ img, video, iframe {
     &__content-link {
         display: inline-block;
         margin-bottom: 10px;
+
+        @media (min-width: $screen-sm-min) {
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media (min-width: $screen-md-min) {
+            margin: 0;
+        }
+    }
+
+    &__photo {
+        display: block;
+
+        @media (min-width: $screen-sm-min) {
+            margin: 0 auto;
+        }
+
+        @media (min-width: $screen-md-min) {
+            margin: 0;
+        }
     }
 }
 
-#page_section {
-    font: $default_font;
-    font-size: $default_font_size;
-    #main_container {
-        .post {
-            margin-bottom: 70px;
-            .tags {
-                margin-bottom: 5px;
-                color: $tag_color;
-            }
-            .ts {
-                float: left;
-                margin-left: -8em;
-                text-align: center;
-                color: $date_color;
-            }
-            .post_img {
-                position: relative;
-            }
-            .post-stub {
-                min-height: 10px;
-            }
-            .replies {
-                margin-top: 15px;
-                text-align: right;
-            }
-            .tag {
-                margin-right: 0.5em;
-            }
-        }
-        .comment {
-            .user {
-                margin-bottom: 10px;
-            }
-            .body {
-                margin-left: 50px;
-                margin-bottom: 20px;
-            }
-        }
-    }
+.footer {
+    padding: 20px 10px;
+    border-top: 1px solid #c3c3c3;
+    text-align: center;
 }

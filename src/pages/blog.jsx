@@ -67,10 +67,12 @@ class DefaultViewBase extends Component {
             console.log('Next page go ', this.lastMid);
             this.props.history.push({pathname: '', query: {before: this.lastMid}});
         }
-    }, 500)
+    }, 500);
 
     onKeyPress = (evt) => {
-        if ([' ', 'Enter', 'PageDown', 'ArrowRight', 'End'].indexOf(evt.key) >= 0){
+        console.log('EVT: ', evt);
+        const listen = [' ', 'Enter', 'PageDown', 'ArrowRight', 'End', 'Space'];
+        if (listen.indexOf(evt.key) >= 0 || listen.indexOf(evt.code >= 0)){
             this.nextPage();
         }
     }

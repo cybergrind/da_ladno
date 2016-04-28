@@ -28,12 +28,12 @@ export class Post extends Component {
     }
 
     render(){
-        let { timestamp, tags } = this.props;
-        let [date, time] = timestamp.split(' ');
+        const { timestamp, tags } = this.props;
+        const [date, time] = timestamp.split(' ');
         return (
             <div className="post">
                 <div className="post__tags">
-                    {tags.map( t => <span key={t+_.uniqueId()} className="post__tag">{t}</span>)}
+                    {tags.map(t => <span key={`tag_${_.uniqueId()}`} className="post__tag">{t}</span>)}
                 </div>
                 <div className="post__body">
                     {this.props.body}
@@ -45,13 +45,14 @@ export class Post extends Component {
                     </span>
                     {' | '}
                     <span className="post__replies">
-                        {this.props.showReplies && <Replies replies={this.props.replies||0} mid={this.props.mid} />}
+                        {this.props.showReplies && <Replies replies={this.props.replies || 0} mid={this.props.mid} />}
                     </span>
                 </div>
             </div>
         );
     }
 }
+
 Post.propTypes = {
     body: PropTypes.array.isRequired,
     timestamp: PropTypes.string.isRequired,
@@ -61,6 +62,7 @@ Post.propTypes = {
     showReplies: PropTypes.bool.isRequired,
     photo: PropTypes.object,
 };
+
 Post.defaultProps = {
     tags: [],
     replies: 0,

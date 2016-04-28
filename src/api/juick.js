@@ -10,28 +10,27 @@ let urlRegex = /((https?|ftp)(:\/\/[^\s()<>]+))/;
 
 
 let uc = 0;
-function link_prepare(s){
+function link_prepare(s) {
     // console.log('Base link: ', s);
     uc += 1;
-    return <LinkWrapper key={'_lnk_'+uc} url={s} />;
+    return <LinkWrapper key={'_lnk_'+ uc} url={s} />;
 }
 
-function parse_substring(s){
-    if (s === '\n'){
-        uc += 1;
-        return <br key={'_br_'+uc}/>;
-    } else if (s === '&quot;'){
-        return '"';
-    } else if (urlRegex.test(s)){
+function parse_substring(s) {
+    if (s === '\n') {
+        return (<br key={`br_${_.uniqueId()}`} />);
+    } else if (s === '&quot;') {
+        return (<span key={`quote_${_.uniqueId()}`}>"</span>);
+    } else if (urlRegex.test(s)) {
         return link_prepare(s);
     } else {
-        return s;
+        return (<span key={`string_${_.uniqueId()}`}>{s}</span>);
     }
 }
 
 const notEmpty = (x) => x && (x.length > 0 || typeof(x) == 'object');
 
-function prepare_body(msg){
+function prepare_body(msg) {
     let txt = msg.body;
     let arr = txt.split(txtRe);
     msg.body = arr.map(parse_substring).filter(notEmpty);
@@ -42,7 +41,7 @@ function prepare_body(msg){
 const LIMIT = 1000;
 
 class JuickApi {
-    constructor(){
+    constructor() {
         this._prev = (new Date() - 5000);
         this._in_progress = 0;
         this.name = name;
@@ -55,21 +54,23 @@ class JuickApi {
         this.load_more();
 
     }
-    checkLS(){
+
+    checkLS() {
         let l = localStorage.getItem('_cachev');
-        if (!l){
+        if (!l) {
             localStorage.clear();
             localStorage.setItem('_cachev', Date.now());
             return;
         }
         let n = Date.now();
-        if ((n - l) > 10*60*1000){
+        if ((n - l) > 10*60*1000) {
             localStorage.clear();
             localStorage.setItem('_cachev', Date.now());
         }
     }
-    async load_more(before){
-        if (this._in_progress){
+
+    async load_more(before) {
+        if (this._in_progress) {
             return;
         };
         console.log('Load more', JSON.stringify(this));
@@ -80,13 +81,12 @@ class JuickApi {
         _.defer(() => set_state('juick_messages', this.messages));
         console.log('In progress=0');
         this._in_progress = 0;
-
     }
 
-    async loadFull(mid){
+    async loadFull(mid) {
         let url = `http://api.juick.com/thread?mid=${mid}`;
         let r = await fetch(url);
-        if (r.status == 200){
+        if (r.status == 200) {
             let messages = await r.json();
             messages = messages.map(prepare_body);
             set_state(['full', mid], messages);
@@ -95,17 +95,17 @@ class JuickApi {
 
     async get_messages(before){
         console.log('Before: ', before);
-        if (before == Infinity){
+        if (before == Infinity) {
             before = null;
         }
         let response = [];
         let url = `http://api.juick.com/messages?uname=${this.name}`;
         const before_mid = before || this.last_mid;
-        if (before_mid){
+        if (before_mid) {
             url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${before_mid}`;
         }
         let local = localStorage.getItem(url);
-        if (!local){
+        if (!local) {
             console.log('Push to url');
             const curr = new Date();
             const wait_time = ((this._prev || curr) -curr + LIMIT);
@@ -126,7 +126,7 @@ class JuickApi {
             console.log('From local storage');
             response = JSON.parse(local);
         }
-        if (response.length > 0){
+        if (response.length > 0) {
             this.last_mid = response[response.length-1].mid;
         }
         return response;

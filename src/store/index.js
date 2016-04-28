@@ -1,4 +1,3 @@
-
 import { compose, createStore } from 'redux';
 import { root_reducer } from '../reducers/root.js';
 import { DevTools } from '../components/devtools.jsx';
@@ -14,6 +13,5 @@ if (process.env.NODE_ENV === 'development'){
     var createStoreFun = createStore;
 }
 
-let store = createStoreFun(root_reducer, {});
+let store = createStoreFun(root_reducer, {'juick_messages': {}});
 export default store;
-

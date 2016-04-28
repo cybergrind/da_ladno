@@ -16,4 +16,3 @@ export function root_reducer(state, action){
     console.log('Old state', state, 'Action: ', action, 'NewState: ', new_state);
     return new_state;
 }
-

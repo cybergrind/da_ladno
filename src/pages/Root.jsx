@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createHistory } from 'history';
+import { useQueries, createHistory } from 'history';
 import { Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
 
@@ -8,7 +8,7 @@ import FullPost from './FullPost.jsx';
 import store from './../store';
 
 
-let history = createHistory();
+let history = useQueries(createHistory)();
 
 class NotFound extends Component {
     render() {

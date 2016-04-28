@@ -52,11 +52,9 @@ class DefaultViewBase extends Component {
         return (nt < (wh + sy + 200));
     }
     loadNavigation(){
-        const {juick_messages} = this.props;
-        let lastMid = _.last(juick_messages).mid;
         return (
             <div>
-                <Link to='' query={{before: lastMid}}>
+                <Link to='' query={{before: this.lastMid}}>
                     Next Page
                 </Link>
             </div>
@@ -66,11 +64,8 @@ class DefaultViewBase extends Component {
     nextPage = _.throttle(() => {
         console.log('Next page check');
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
-
-            const {juick_messages} = this.props;
-            const lastMid = _.last(juick_messages).mid;
-            console.log('Next page go ', lastMid);
-            this.props.history.push({pathname: '', query: {before: lastMid}});
+            console.log('Next page go ', this.lastMid);
+            this.props.history.push({pathname: '', query: {before: this.lastMid}});
         }
     }, 500)
 
@@ -93,12 +88,14 @@ class DefaultViewBase extends Component {
         if (before == Infinity){
             scrollTo(window.scrollX, 0);
         }
-        let messages = _.take((this.props.juick_messages || []).filter( m => m.mid < before), 20);
+        let {messages} = this.props;
         console.log('M: ', messages, ' Before: ', before);
         if (messages.length == 0){
             juick_api.load_more(before);
             return <div>Loading...</div>;
         }
+        this.messages = messages;
+        this.lastMid = _.last(messages).mid;
         return (
             <section id='blog_content'>
                 {messages.map((c) => <Post  key={'m_'+c.mid} {...c}/>) }
@@ -109,8 +106,10 @@ class DefaultViewBase extends Component {
 
 }
 
-function dv_stp(state){
-    return state;
+function dv_stp(state, other){
+    console.log('New state dvstp ', other);
+    const before = other.location.query.before || Infinity;
+    return {messages: state.juick_messages[before] || []};
 }
 
 let DefaultView = connect(dv_stp)(DefaultViewBase);

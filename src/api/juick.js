@@ -48,7 +48,7 @@ class JuickApi {
         this.name = name;
         console.log('Init juick api');
         this.last_mid = null;
-        this.messages = [];
+        this.messages = {};
         this.checkLS();
         this.load_more = this.load_more.bind(this);
         this.get_messages = this.get_messages.bind(this);
@@ -74,8 +74,9 @@ class JuickApi {
         };
         console.log('Load more', JSON.stringify(this));
         this._in_progress = 1;
-        let response = await (this.get_messages(before));
-        this.push_messages(response);
+        let messages = await (this.get_messages(before));
+        messages = messages.map(prepare_body);
+        this.messages[before] = messages;
         _.defer(() => set_state('juick_messages', this.messages));
         console.log('In progress=0');
         this._in_progress = 0;
@@ -90,13 +91,6 @@ class JuickApi {
             messages = messages.map(prepare_body);
             set_state(['full', mid], messages);
         }
-    }
-
-    push_messages(messages){
-        console.log('Mesasges: ', messages, this);
-        messages = messages.map(prepare_body);
-        this.messages = [...this.messages, ...messages];
-        console.log('M: ', this);
     }
 
     async get_messages(before){

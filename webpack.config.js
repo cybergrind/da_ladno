@@ -39,7 +39,8 @@ if (PRODUCTION){
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(ENV.NODE_ENV)
-            }})
+            },
+        })
     ];
 }
 
@@ -60,5 +61,6 @@ module.exports = {
               include: path.join(__dirname, 'scss')
             }
         ]
-  }
+    },
+    resolve: ['', 'js', 'jsx', 'sass'],
 };

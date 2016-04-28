@@ -18,7 +18,8 @@ function link_prepare(s){
 
 function parse_substring(s){
     if (s === '\n'){
-        return <br/>;
+        uc += 1;
+        return <br key={'_br_'+uc}/>;
     } else if (s === '&quot;'){
         return '"';
     } else if (urlRegex.test(s)){

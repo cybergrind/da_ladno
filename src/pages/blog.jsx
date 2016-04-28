@@ -15,20 +15,19 @@ import { getTitle } from '../title.js';
 export class BlogContainer extends Component {
     render(){
         return (
-            <section id='page_section'>
+            <div className="page" id="page_section">
                 {DevTools && <DevTools />}
-                <div className='pure-g'>
-                    <div className='pure-u-4-24'/>
-                    <div className='pure-u-16-24' id='main_container'>
-                        <h1>
-                            <Link to=''>
-                                {BlogContainer.title}
-                            </Link>
-                        </h1>
+                <div className="page__wrapper">
+                    <h1 className="page__header">
+                        <Link to='' className="page__header-link">
+                            {BlogContainer.title}
+                        </Link>
+                    </h1>
+                    <div className="page__content">
                         {this.props.children}
                     </div>
                 </div>
-            </section>
+            </div>
         );
     }
 }
@@ -99,10 +98,10 @@ class DefaultViewBase extends Component {
         this.messages = messages;
         this.lastMid = _.last(messages).mid;
         return (
-            <section id='blog_content'>
-                {messages.map((c) => <Post  key={'m_'+c.mid} {...c}/>) }
+            <div className="content" id='blog_content'>
+                {messages.map((c) => <Post  key={'m_'+c.mid} {...c} />) }
                 {this.loadNavigation()}
-            </section>
+            </div>
         );
     }
 

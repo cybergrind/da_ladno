@@ -23,7 +23,7 @@ function parse_substring(s) {
         return (<span key={`quote_${_.uniqueId()}`}>"</span>);
     } else if (urlRegex.test(s)) {
         return link_prepare(s);
-    } else {
+    } else if (s){
         return (<span key={`string_${_.uniqueId()}`}>{s}</span>);
     }
 }
@@ -46,7 +46,7 @@ class JuickApi {
         this._in_progress = 0;
         this.name = name;
         console.log('Init juick api');
-        this.last_mid = null;
+        this.last_mid = Infinity;
         this.messages = {};
         this.checkLS();
         this.load_more = this.load_more.bind(this);
@@ -95,13 +95,10 @@ class JuickApi {
 
     async get_messages(before){
         console.log('Before: ', before);
-        if (before == Infinity) {
-            before = null;
-        }
         let response = [];
         let url = `http://api.juick.com/messages?uname=${this.name}`;
         const before_mid = before || this.last_mid;
-        if (before_mid) {
+        if (before_mid && this.last_mid < Infinity) {
             url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${before_mid}`;
         }
         let local = localStorage.getItem(url);

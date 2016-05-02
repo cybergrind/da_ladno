@@ -2,6 +2,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { set_state } from '../actions';
+import qs from 'qs';
 import { LinkWrapper } from '../components/embed_link/wrapper.jsx';
 
 let name = 'netneladno';
@@ -69,15 +70,15 @@ class JuickApi {
         }
     }
 
-    async load_more(before) {
+    async load_more(before, tag) {
         if (this._in_progress) {
             return;
         };
         console.log('Load more', JSON.stringify(this));
         this._in_progress = 1;
-        let messages = await (this.get_messages(before));
+        let messages = await (this.get_messages(before, tag));
         messages = messages.map(prepare_body);
-        this.messages[before] = messages;
+        this.messages[`${before}.${tag}`] = messages;
         _.defer(() => set_state('juick_messages', this.messages));
         console.log('In progress=0');
         this._in_progress = 0;
@@ -93,14 +94,22 @@ class JuickApi {
         }
     }
 
-    async get_messages(before){
+    async get_messages(before, tag){
         console.log('Before: ', before);
         let response = [];
-        let url = `http://api.juick.com/messages?uname=${this.name}`;
         const before_mid = before || this.last_mid;
+        const query = {uname: this.name};
+
         if (before_mid && this.last_mid < Infinity) {
-            url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${before_mid}`;
+            //url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${before_mid}`;
+            query.before_mid = before_mid;
         }
+
+        if (tag) {
+            query.tag = tag;
+        }
+        let url = `http://api.juick.com/messages?${qs.stringify(query)}`;
+
         let local = localStorage.getItem(url);
         if (!local) {
             console.log('Push to url');

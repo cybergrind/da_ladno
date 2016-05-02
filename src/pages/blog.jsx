@@ -49,7 +49,7 @@ class DefaultView extends Component {
     loadNavigation(){
         return (
             <div>
-                <Link to='' query={{before: this.lastMid}}>
+                <Link to='' query={this.nextQuery}>
                     Next Page
                 </Link>
             </div>
@@ -60,7 +60,7 @@ class DefaultView extends Component {
         console.log('Next page check');
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
             console.log('Next page go ', this.lastMid);
-            this.props.history.push({pathname: '', query: {before: this.lastMid}});
+            this.props.history.push({pathname: '', query: this.nextQuery});
         }
     }, 500);
 
@@ -81,21 +81,28 @@ class DefaultView extends Component {
 
     render(){
         console.log('props: ', this.props);
-        const before = this.props.location.query.before || Infinity;
+        const {location, messages} = this.props;
+        const query = location.query
+        const before = query.before || Infinity;
+        const tag = query.tag || null;
         if (before == Infinity) {
             scrollTo(window.scrollX, 0);
         }
-        const {messages} = this.props;
         console.log('M: ', messages, ' Before: ', before);
         if (!messages.length){
-            juick_api.load_more(before);
+            juick_api.load_more(before, tag);
             return <div>Loading...</div>;
         }
         this.messages = messages;
+
         this.lastMid = _.last(messages).mid;
+        this.nextQuery = {before: this.lastMid};
+        if (tag){
+            this.nextQuery.tag = tag;
+        }
         return (
             <div className="content">
-                {messages.map(props => (<Post key={'m_' + props.mid} {...props} />))}
+                {messages.map(props => (<Post key={'m_' + props.mid} {...props} location={location}/>))}
                 {this.loadNavigation()}
             </div>
         );
@@ -106,7 +113,8 @@ class DefaultView extends Component {
 function dv_stp(state, other){
     console.log('New state dvstp ', other);
     const before = other.location.query.before || Infinity;
-    return {messages: state.juick_messages[before] || []};
+    const tag = other.location.query.tag || null;
+    return {messages: state.juick_messages[`${before}.${tag}`] || []};
 }
 
 

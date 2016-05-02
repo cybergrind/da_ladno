@@ -3,7 +3,7 @@
 $default_font: sans-serif;
 $default_font_size: 20px;
 $date_color: #999;
-$tag_color: #948;
+$tag_color: #999;
 
 // RWD Breakpoints
 $screen-xs-min: 480px;
@@ -137,6 +137,12 @@ img, video, iframe {
         @media (min-width: $screen-md-min) {
             margin: 0;
         }
+    }
+
+    &__tag {
+        color: $tag_color;
+        border-bottom: 1px dashed $tag_color;
+        margin-right: 0.5em;
     }
 }
 

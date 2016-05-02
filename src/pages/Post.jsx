@@ -17,6 +17,15 @@ Replies.propTypes = {
 };
 
 
+class Tag extends Component {
+    render(){
+        const {tag, location} = this.props;
+        const before = (location.query || {}).before || Infinity;
+        const query = {before, tag};
+        return <Link className="post__tag" to='' query={query}>{tag}</Link>;
+    }
+}
+
 export class Post extends Component {
     drawPhoto(){
         const {photo} = this.props;
@@ -28,12 +37,13 @@ export class Post extends Component {
     }
 
     render(){
-        const { timestamp, tags } = this.props;
+        console.log('PROPSS: ', this.props);
+        const {timestamp, tags, location} = this.props;
         const [date, time] = timestamp.split(' ');
         return (
             <div className="post">
                 <div className="post__tags">
-                    {tags.map(t => <span key={`tag_${_.uniqueId()}`} className="post__tag">{t}</span>)}
+                    {tags.map(t => <Tag key={`tag_${_.uniqueId()}`} tag={t} location={location}/>)}
                 </div>
                 <div className="post__body">
                     {this.props.body}
@@ -61,6 +71,7 @@ Post.propTypes = {
     tags: PropTypes.array.isRequired,
     showReplies: PropTypes.bool.isRequired,
     photo: PropTypes.object,
+    location: PropTypes.object.isRequired,
 };
 
 Post.defaultProps = {

@@ -20,11 +20,15 @@ Replies.propTypes = {
 class Tag extends Component {
     render(){
         const {tag, location} = this.props;
-        const before = (location.query || {}).before || Infinity;
+        const before = ((location || {}).query || {}).before || Infinity;
         const query = {before, tag};
         return <Link className="post__tag" to='' query={query}>{tag}</Link>;
     }
 }
+Tag.propTypes = {
+    tag: PropTypes.string.isRequired,
+    location: PropTypes.object
+};
 
 export class Post extends Component {
     drawPhoto(){

@@ -8,14 +8,13 @@ import { Link } from 'react-router';
 import store from '../store';
 import juick_api from '../api/juick.js';
 import { Post } from './Post.jsx';
-import { DevTools } from '../components/devtools.jsx';
+//import { DevTools } from '../components/devtools.jsx';
 import { getTitle } from '../title.js';
 
 
 export function BlogContainer({children}) {
     return (
         <div className="page">
-            {DevTools && <DevTools />}
             <div className="page__wrapper">
                 <h1 className="page__header">
                     <Link to='' className="page__header-link">
@@ -58,9 +57,11 @@ class DefaultView extends Component {
 
     nextPage = _.throttle(() => {
         console.log('Next page check');
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+        console.log(`${window.innerHeight} ${window.scrollY} ${document.body.offsetHeight}`);
+        if ((window.innerHeight + window.scrollY + 5) >= document.body.offsetHeight){
             console.log('Next page go ', this.lastMid);
-            this.props.history.push({pathname: '', query: this.nextQuery});
+            console.log(this);
+            this.props.router.push({pathname: '', query: this.nextQuery});
         }
     }, 500);
 

@@ -54,12 +54,11 @@ module.exports = {
     module: {
         loaders: [
             {test: /\.jsx?$/,
-             loaders: ['babel?stage=1'],
-             include: path.join(__dirname, 'src')}
-            ,{test: /\.scss$/,
-              loaders: ['style', 'css', 'sass'],
-              include: path.join(__dirname, 'scss')
-            }
+             loaders: ['react-hot', 'babel'],
+             include: path.join(__dirname, 'src')},
+            {test: /\.scss$/,
+             loaders: ['style', 'css', 'sass'],
+             include: path.join(__dirname, 'scss')}
         ]
     },
     resolve: ['', 'js', 'jsx', 'sass'],

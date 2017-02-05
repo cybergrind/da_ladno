@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { useQueries, createHistory } from 'history';
-import { Router, Route } from 'react-router';
+//import { useQueries, createHistory } from 'history';
+import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
 import DefaultView, { BlogContainer } from './blog.jsx';
@@ -8,7 +8,7 @@ import FullPost from './FullPost.jsx';
 import store from './../store';
 
 
-let history = useQueries(createHistory)();
+//let history = useQueries(createHistory)();
 
 class NotFound extends Component {
     render() {
@@ -33,7 +33,7 @@ export class Root extends Component {
         return (
             <section>
                 <Provider store={store}>
-                    <Router history={history}>
+                    <Router history={browserHistory}>
                         {routes}
                     </Router>
                 </Provider>

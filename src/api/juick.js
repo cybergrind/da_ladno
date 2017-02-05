@@ -100,7 +100,7 @@ class JuickApi {
         const before_mid = before || this.last_mid;
         const query = {uname: this.name};
 
-        if (before_mid && this.last_mid < Infinity) {
+        if (before_mid < Infinity && this.last_mid < Infinity) {
             //url = `http://api.juick.com/messages?uname=${this.name}&before_mid=${before_mid}`;
             query.before_mid = before_mid;
         }
